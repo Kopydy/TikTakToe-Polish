@@ -4,9 +4,11 @@ public class Main {
     public static void main(String[] args) {
 
         String[] pole = new String[9];
+        int[] IdPole = new int[9];
 
         String Gracz1;
         String Gracz2;
+
         int odpGracz1;
         int odpGracz2;
         boolean czyJestZwyciezca = false;
@@ -14,6 +16,10 @@ public class Main {
 
         for(int i=0; i<pole.length;i++){
             pole[i] = " ";
+        }
+
+        for(int i=0; i< IdPole.length;i++){
+            IdPole[i] = i;
         }
 
 
@@ -31,24 +37,7 @@ public class Main {
             System.out.println("Kolej "+ Gracz1+" wybierz pole, które chcesz zająć: ");
             odpGracz1 = scanner.nextInt();
 
-            if(pole[odpGracz1].equals("X")|| pole[odpGracz1].equals("@")){
-                System.out.println(Gracz1 + " wybierz inne pole:");
-                odpGracz1 = scanner.nextInt();
-            }
-            else{
-                switch (odpGracz1){
-                    case 0: pole[0] = "X"; break;
-                    case 1: pole[1] = "X"; break;
-                    case 2: pole[2] = "X"; break;
-                    case 3: pole[3] = "X"; break;
-                    case 4: pole[4] = "X"; break;
-                    case 5: pole[5] = "X"; break;
-                    case 6: pole[6] = "X"; break;
-                    case 7: pole[7] = "X"; break;
-                    case 8: pole[8] = "X"; break;
-                    default: System.out.println("Nic się nie dzieje"); break;
-                }
-            }
+            warunek(pole, IdPole, odpGracz1, Gracz1, scanner, "X");
 
             drukujPlansze(pole);
 
@@ -56,33 +45,31 @@ public class Main {
 
             if (checkCzyRemis(czyJestZwyciezca, pole)) break;
 
-
             System.out.println("Kolej "+ Gracz2+" wybierz pole, które chcesz zająć: ");
             odpGracz2 = scanner.nextInt();
 
-            if(pole[odpGracz2].equals("X") || pole[odpGracz2].equals("@")){
-                System.out.println(Gracz2 + " wybierz inne pole:");
-                odpGracz2 = scanner.nextInt();
-            }
-            else{
-                switch (odpGracz2){
-                    case 0: pole[0] = "@"; break;
-                    case 1: pole[1] = "@"; break;
-                    case 2: pole[2] = "@"; break;
-                    case 3: pole[3] = "@"; break;
-                    case 4: pole[4] = "@"; break;
-                    case 5: pole[5] = "@"; break;
-                    case 6: pole[6] = "@"; break;
-                    case 7: pole[7] = "@"; break;
-                    case 8: pole[8] = "@"; break;
-                    default: System.out.println("Nic się nie dzieje"); break;
-                }
-            }
+            warunek(pole,IdPole, odpGracz2, Gracz2, scanner, "@");
             if (checkThereIsWinner(pole, Gracz1, Gracz2, czyJestZwyciezca)) break;
             if (checkCzyRemis(czyJestZwyciezca, pole)) break;
             continue;
         }
 
+    }
+
+    public static void warunek(String[] pole,int[] IdPole, int odpGracz1, String Gracz1, Scanner scanner, String X) {
+        if (pole[odpGracz1].equals("X") || pole[odpGracz1].equals("@")) {
+            System.out.println(Gracz1 + " wybierz inne pole:");
+            odpGracz1 = scanner.nextInt();
+        } else {
+            for(int i =0;i<9;i++){
+                if(odpGracz1 == IdPole[i]){
+                    pole[i] = X;
+                }
+                else{
+                    ;
+                }
+            }
+        }
     }
 
     public static boolean checkCzyRemis(boolean czyJestZwyciezca, String[] pole) {
@@ -91,7 +78,7 @@ public class Main {
             return true;
         }
         else{
-            System.out.println();
+            ;
         }
         return false;
     }
@@ -176,7 +163,7 @@ public class Main {
             return true;
         }
         else{
-            System.out.println();
+            ;
         }
         return false;
     }
